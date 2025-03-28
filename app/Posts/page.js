@@ -11,7 +11,7 @@ export default async function Posts() {
   const usersData = await usersRes.json();
 
   return (
-    <div className="flex flex-col items-center gap-8 p-8">
+    <div className="flex flex-col items-center mb-4 p-8">
       <h1> Feed</h1>
       <Suspense fallback={<div>Loading...</div>}>
         <PostCard usersData={usersData} postsData={postsData} />

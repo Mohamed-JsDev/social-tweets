@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Icons from "./Icons";
 import CommentsList from "./CommentsList";
-export default function Posts({ usersData, postsData }) {
+export default function PostCard({ usersData, postsData }) {
   const [activeComments, setActiveComments] = useState(null);
 
   const getComments = async (postId) => {
