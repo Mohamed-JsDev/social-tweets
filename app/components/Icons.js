@@ -10,7 +10,7 @@ export default function Icons({ onClickComments }) {
     <div className="flex justify-between items-center">
       <div className="flex">
         <button
-          className={`m-2 cursor-pointer ${
+          className={`m-2 cursor-pointer hover:text-gray-500  ${
             love ? "text-red-600" : "text-white"
           }`}
           onClick={() => setLove(!love)}
@@ -21,7 +21,7 @@ export default function Icons({ onClickComments }) {
         </button>
 
         <button
-          className="m-2 cursor-pointer text-white"
+          className="m-2 cursor-pointer text-white hover:text-gray-500"
           onClick={onClickComments}
         >
           <abbr title="comment">
@@ -29,14 +29,14 @@ export default function Icons({ onClickComments }) {
           </abbr>
         </button>
 
-        <button className="m-2 cursor-pointer text-white">
+        <button className="m-2 cursor-pointer text-white hover:text-gray-500">
           <abbr title="send">
             <Send />
           </abbr>
         </button>
       </div>
       <button
-        className={`m-2 cursor-pointer ${
+        className={`m-2 cursor-pointer hover:text-gray-500 ${
           save ? "text-yellow-400" : "text-white"
         }`}
         onClick={() => setSave(!save)}

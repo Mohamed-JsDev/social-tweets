@@ -1,4 +1,7 @@
 import PostCard from "../../components/PostCard";
+import UserInfo from "../../components/UserInfo";
+import Link from "next/link";
+import { MoveLeft, Tags, Hash } from "lucide-react";
 export default async function UserProfile({ params }) {
   const id = params.userId;
   {
@@ -16,32 +19,30 @@ export default async function UserProfile({ params }) {
   const userPosts = postsData.filter((post) => parseInt(id) === post.userId);
 
   return (
-    <div className=" m-8 bg-black flex-col  rounded-lg shadow-lg">
-      <div className="flex p-4 w-2/3 items-start justify-center  mb-4 gap-10 text-white border border-white">
-        <img
-          className="w-30 h-30 rounded-full bg-gray-700 mr-4 flex-shrink-0"
-          src={`/icon${userData.id}.jpg`}
-          alt={`User ${userData.id}`}
-        />
-        <div className="">
-          <p className="font-semibold md:text-2xl">{userData.name}</p>
-          <p className="font-semibold text-sm">{userData.phone}</p>
-          <div className="space-y-2 gap-10">
-            <span className="text-gray-300 text-sm block">
-              {userData.address.city}, {userData.address.suite},{" "}
-              {userData.address.street}
-            </span>
-            <p className="text-gray-300 text-sm">{userData.email}</p>
-            <p className="font-semibold text-sm">{userData.company.name}</p>
-            <span className="text-gray-300 text-sm block">
-              {userData.website}
+    <div className=" p-8 bg-black w-full flex flex-col items-center justify-center   rounded-lg shadow-lg">
+      <UserInfo user={userData} />
+      <div className="flex flex-col justify-center items-center border-t border-gray-500  ">
+        <div className="flex gap-4 ">
+          <div className="border-t-2 p-4 border-t-white flex">
+            <Hash />
+            <p className="w-fit text-2xl  cursor-pointer ms-1 ">POSTS</p>
+          </div>
+          <div className="group  flex  text-xl p-4 cursor-pointer h-auto relative w-1/2   ">
+            <Tags />
+            <p>TAGGED</p>
+            <span className="hidden  group-hover:block mt-2 w-60 absolute text-2xl left-0 top-10 p-2  border rounded border-white transition duration-700 ease-in-out  ">
+              No Tags yet
             </span>
           </div>
         </div>
-      </div>
-      <div className="bg-white ">
         <PostCard postsData={userPosts} usersData={userData} />
       </div>
+      <Link
+        href="/"
+        className="p-2 absolute top-20 left-10 text-sky-400 text-2xl hover:opacity-20 rounded "
+      >
+        <MoveLeft /> Back{" "}
+      </Link>
     </div>
   );
 }

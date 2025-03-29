@@ -16,7 +16,6 @@ export default function UserCard({ usersData }) {
               <p className="text-gray-300 text-sm">{user.email}</p>
             </div>
           </div>
-
           <div className="hidden group-hover:block absolute left-0 top-full mt-2 w-80 h-auto p-4 bg-black text-white border border-white rounded-lg shadow-lg z-50 transition-all duration-300">
             <div className="flex items-start mb-4">
               <img
