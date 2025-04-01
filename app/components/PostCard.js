@@ -2,14 +2,13 @@
 import { useState } from "react";
 import Icons from "./Icons";
 import CommentsList from "./CommentsList";
-import Image from "next/image";
-export default function PostCard({ usersData, postsData, photos }) {
+export default function PostCard({ usersData, postsData, comments }) {
   const [activeComments, setActiveComments] = useState(null);
   const getComments = async (postId) => {
     try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/comments");
-      const data = await res.json();
-      const postComments = data.filter((comment) => comment.postId === postId);
+      const postComments = comments.filter(
+        (comment) => comment.postId === postId
+      );
 
       setActiveComments({
         postId,
@@ -37,8 +36,6 @@ export default function PostCard({ usersData, postsData, photos }) {
   return (
     <div className="flex flex-col items-center gap-8 p-8">
       {postsData.map((post, index) => {
-        const photoId = Math.floor(Math.random() * 20);
-        const photo = photos[photoId];
         const assignedUser = getAssignedUser(index);
         if (!assignedUser) return null;
 
@@ -71,8 +68,8 @@ export default function PostCard({ usersData, postsData, photos }) {
             </div>
 
             {/* Post Image (Placeholder) */}
-            <div className="w-fit bg-gray-800 h-96 mb-4 flex items-center justify-center">
-              <img className="w-1250 h-3/5" src={photo.image} alt="media" />
+            <div className="w-full rounded  bg-gray-800 h-96 mb-4 flex items-center justify-center">
+              <span className=" text center">Post Image </span>
             </div>
 
             {/* Icons and Comments Section */}

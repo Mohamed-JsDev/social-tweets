@@ -14,23 +14,26 @@ export default function CommentsList({ comments, onClose }) {
 
         {/* Comments List */}
         <div className="max-h-[60vh] overflow-y-auto p-4">
-          {comments.map((comment) => (
-            <div key={comment.id} className="mb-4 last:mb-0">
-              <div className="flex items-start">
-                <img
-                  className="w-12 h-12 rounded-full bg-gray-700 mr-3 flex-shrink-0 "
-                  src={`/icon${comment.postId}.jpg`}
-                  alt={`User ${comment.id}`}
-                />
-                <div>
-                  <p className="font-semibold text-sm">
-                    {comment.email.split("@")[0]}
-                  </p>
-                  <p className="text-gray-300 text-sm">{comment.body}</p>
+          {comments.map((comment) => {
+            const photoId = Math.floor(Math.random() * 10);
+            return (
+              <div key={comment.id} className="mb-4 last:mb-0">
+                <div className="flex items-start">
+                  <img
+                    className="w-12 h-12 rounded-full bg-gray-700 mr-3 flex-shrink-0 "
+                    src={`/icon${photoId}.jpg`}
+                    alt={`User ${comment.id}`}
+                  />
+                  <div>
+                    <p className="font-semibold text-sm">
+                      {comment.email.split("@")[0]}
+                    </p>
+                    <p className="text-gray-300 text-sm">{comment.body}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Add Comment Input */}
