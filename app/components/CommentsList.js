@@ -1,14 +1,67 @@
-import { CircleX } from "lucide-react";
+"use client";
+import { XCircle } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function CommentsList({ comments, onClose }) {
+  const { theme } = useTheme();
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md bg-gray-900 rounded-lg overflow-hidden">
-        {/* Comments Header */}
-        <div className="flex justify-between items-center p-4 border-b border-gray-800">
-          <h3 className="font-semibold">Comments</h3>
-          <button onClick={onClose} className="text-white">
-            <CircleX size={24} />
+    <div
+      className={`
+      fixed inset-0 z-50 flex flex-col items-center justify-center p-4
+      ${
+        theme === "dark"
+          ? "bg-[var(--bg-dark)] bg-opacity-90"
+          : "bg-[var(--bg-light)] bg-opacity-90"
+      }
+      transition-all duration-300
+    `}
+    >
+      <div
+        className={`
+        w-full max-w-md rounded-lg shadow-xl overflow-hidden
+        ${theme === "dark" ? "bg-[var(--card-dark)]" : "bg-[var(--card)]"}
+        border ${
+          theme === "dark"
+            ? "border-[var(--border-dark)]"
+            : "border-[var(--border)]"
+        }
+      `}
+      >
+        {/* comment head*/}
+        <div
+          className={`
+          flex justify-between items-center p-4
+          border-b ${
+            theme === "dark"
+              ? "border-[var(--border-dark)]"
+              : "border-[var(--border)]"
+          }
+        `}
+        >
+          <h3
+            className={`
+            font-semibold ${
+              theme === "dark"
+                ? "text-[var(--text-dark)]"
+                : "text-[var(--text)]"
+            }
+          `}
+          >
+            Comments ({comments.length})
+          </h3>
+          <button
+            onClick={onClose}
+            aria-label="Close comments"
+            className={`
+              p-1 rounded-full ${
+                theme === "dark"
+                  ? "hover:bg-[var(--bg-dark)] text-[var(--text-dark)]"
+                  : "hover:bg-[var(--bg-light)] text-[var(--text)]"
+              }
+            `}
+          >
+            <XCircle size={24} />
           </button>
         </div>
 
@@ -17,18 +70,42 @@ export default function CommentsList({ comments, onClose }) {
           {comments.map((comment) => {
             const photoId = Math.floor(Math.random() * 10);
             return (
-              <div key={comment.id} className="mb-4 last:mb-0">
-                <div className="flex items-start">
-                  <img
-                    className="w-12 h-12 rounded-full bg-gray-700 mr-3 flex-shrink-0 "
-                    src={`/icon${photoId}.jpg`}
-                    alt={`User ${comment.id}`}
-                  />
-                  <div>
-                    <p className="font-semibold text-sm">
-                      {comment.email.split("@")[0]}
+              <div key={comment.id} className="mb-6 last:mb-0">
+                <div className="flex items-start gap-3">
+                  <div className="relative w-10 h-10 flex-shrink-0">
+                    <img
+                      className="w-full h-full rounded-full object-cover"
+                      src={`/icon${photoId}.jpg`}
+                      alt={`User ${comment.id}`}
+                      onError={(e) => {
+                        e.target.src = "/default-user.jpg";
+                        e.target.onerror = null;
+                      }}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className={`
+                      font-semibold text-sm mb-1 ${
+                        theme === "dark"
+                          ? "text-[var(--text-dark)]"
+                          : "text-[var(--text)]"
+                      }
+                    `}
+                    >
+                      {comment.name || comment.email.split("@")[0]}
                     </p>
-                    <p className="text-gray-300 text-sm">{comment.body}</p>
+                    <p
+                      className={`
+                      text-sm ${
+                        theme === "dark"
+                          ? "text-[var(--secondary-dark)]"
+                          : "text-[var(--secondary)]"
+                      }
+                    `}
+                    >
+                      {comment.body}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -36,15 +113,48 @@ export default function CommentsList({ comments, onClose }) {
           })}
         </div>
 
-        {/* Add Comment Input */}
-        <form className="p-4 border-t border-gray-800">
-          <div className="flex items-center">
+        {/*Add comments */}
+        <form
+          className={`
+          p-4 border-t ${
+            theme === "dark"
+              ? "border-[var(--border-dark)]"
+              : "border-[var(--border)]"
+          }
+        `}
+        >
+          <div className="flex items-center gap-2">
             <input
               type="text"
-              placeholder="Add a comment..."
-              className="bg-transparent border-none w-full text-white placeholder-gray-500 focus:outline-none"
+              placeholder="Add Comment.."
+              className={`
+                flex-1 py-2 px-3 rounded-full
+                ${
+                  theme === "dark"
+                    ? "bg-[var(--bg-dark)] text-[var(--text-dark)] placeholder-[var(--secondary-dark)]"
+                    : "bg-[var(--bg-light)] text-[var(--text)] placeholder-[var(--secondary)]"
+                }
+                focus:outline-none focus:ring-2 ${
+                  theme === "dark"
+                    ? "focus:ring-[var(--primary-dark)]"
+                    : "focus:ring-[var(--primary)]"
+                }
+              `}
             />
-            <button className="text-blue-500 font-semibold">Post</button>
+            <button
+              type="submit"
+              className={`
+                px-4 py-2 rounded-full font-medium
+                ${
+                  theme === "dark"
+                    ? "bg-[var(--primary-dark)] text-white"
+                    : "bg-[var(--primary)] text-white"
+                }
+                hover:opacity-90 transition-opacity
+              `}
+            >
+              post
+            </button>
           </div>
         </form>
       </div>

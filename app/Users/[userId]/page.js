@@ -2,6 +2,7 @@ import PostCard from "../../components/PostCard";
 import UserInfo from "../../components/UserInfo";
 import Link from "next/link";
 import { MoveLeft, Tags, Hash } from "lucide-react";
+import Header from "@/app/components/Header";
 export default async function UserProfile({ params }) {
   const id = params.userId;
   {
@@ -20,6 +21,7 @@ export default async function UserProfile({ params }) {
 
   return (
     <div className=" p-8 bg-black w-full flex flex-col items-center justify-center   rounded-lg shadow-lg">
+      <Header />
       <UserInfo user={userData} />
       <div className="flex flex-col justify-center items-center border-t border-gray-500  ">
         <div className="flex gap-4 ">

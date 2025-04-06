@@ -1,142 +1,76 @@
 "use client";
 import { Bookmark, Heart, MessageCircle, Send } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Icons({ onClickComments }) {
+  const { theme } = useTheme();
   const [love, setLove] = useState(false);
   const [save, setSave] = useState(false);
 
+  const iconColor =
+    theme === "dark"
+      ? "text-[var(--secondary-dark)]"
+      : "text-[var(--secondary)]";
+  const hoverColor =
+    theme === "dark"
+      ? "hover:text-[var(--text-dark)]"
+      : "hover:text-[var(--text)]";
+  const activeColor = "text-red-600";
+  const saveActiveColor = "text-yellow-400";
+
   return (
-    <div className="flex justify-between items-center">
-      <div className="flex">
+    <div
+      className={`flex justify-between items-center pt-3 border-t ${
+        theme === "dark"
+          ? "border-[var(--border-dark)]"
+          : "border-[var(--border)]"
+      }`}
+    >
+      <div className="flex space-x-2 sm:space-x-4">
         <button
-          className={`m-2 cursor-pointer hover:text-gray-500  ${
-            love ? "text-red-600" : "text-white"
+          className={`p-1 rounded-full transition-colors ${hoverColor} ${
+            love ? activeColor : iconColor
           }`}
           onClick={() => setLove(!love)}
+          aria-label={love ? "Remove like" : "Like post"}
         >
-          <abbr title="love">
-            <Heart strokeWidth={love ? 4 : 2} />
-          </abbr>
+          <Heart
+            size={20}
+            strokeWidth={love ? 2.5 : 1.5}
+            fill={love ? "currentColor" : "none"}
+          />
         </button>
 
         <button
-          className="m-2 cursor-pointer text-white hover:text-gray-500"
+          className={`p-1 rounded-full transition-colors ${hoverColor} ${iconColor}`}
           onClick={onClickComments}
+          aria-label="Add comment"
         >
-          <abbr title="comment">
-            <MessageCircle />
-          </abbr>
+          <MessageCircle size={20} strokeWidth={1.5} />
         </button>
 
-        <button className="m-2 cursor-pointer text-white hover:text-gray-500">
-          <abbr title="send">
-            <Send />
-          </abbr>
+        <button
+          className={`p-1 rounded-full transition-colors ${hoverColor} ${iconColor}`}
+          aria-label="Share post"
+        >
+          <Send size={20} strokeWidth={1.5} />
         </button>
       </div>
+
       <button
-        className={`m-2 cursor-pointer hover:text-gray-500 ${
-          save ? "text-yellow-400" : "text-white"
-        }`}
+        className={`p-1 rounded-full transition-colors ${
+          save ? saveActiveColor : iconColor
+        } ${!save && hoverColor}`}
         onClick={() => setSave(!save)}
+        aria-label={save ? "Remove from saved" : "Save post"}
       >
-        <abbr title="save">
-          <Bookmark
-            strokeWidth={save ? 4 : 2}
-            fill={save ? "currentColor" : "none"}
-          />
-        </abbr>
+        <Bookmark
+          size={20}
+          strokeWidth={save ? 2.5 : 1.5}
+          fill={save ? "currentColor" : "none"}
+        />
       </button>
     </div>
   );
 }
-
-// "use client";
-// import { Bookmark } from "lucide-react";
-// import { Heart } from "lucide-react";
-// import { MessageCircle } from "lucide-react";
-// import { Send } from "lucide-react";
-// import { useState } from "react";
-
-// export default function Icons({ onClickComments }) {
-//   const [love, setLove] = useState(false);
-//   const [save, setSave] = useState(false);
-
-//   return (
-//     <div className="flex">
-//       <button
-//         className={`m-2 cursor-pointer ${
-//           love ? "text-red-600 rounded" : "text-white"
-//         }`}
-//         onClick={() => setLove(!love)}
-//       >
-//         <abbr title="love">
-//           <Heart strokeWidth={love ? 4 : 2} />
-//         </abbr>
-//       </button>
-
-//       {/*onClickComments */}
-//       <button className="m-2 cursor-pointer" onClick={onClickComments}>
-//         <abbr title="comment">
-//           <MessageCircle />
-//         </abbr>
-//       </button>
-//       <button className="m-2 cursor-pointer">
-//         <abbr title="send">
-//           <Send />
-//         </abbr>
-//       </button>
-
-//       <button
-//         className={`m-2 cursor-pointer ${
-//           save ? "bg-white text-black rounded" : "bg-black"
-//         }`}
-//         onClick={() => setSave(!save)}
-//       >
-//         <abbr title="save">
-//           <Bookmark strokeWidth={save ? 4 : 2} />
-//         </abbr>
-//       </button>
-//     </div>
-//   );
-// }
-
-// "use client";
-// import { Bookmark } from "lucide-react";
-// import { Heart } from "lucide-react";
-// import { MessageCircle } from "lucide-react";
-// import { useState } from "react";
-// export default function Icons() {
-//   const [love, setLove] = useState(false);
-//   const [save, setSave] = useState(false);
-//   return (
-//     <div className="flex  ">
-//       <button
-//         className={`m-2 cursor-pointer + ${
-//           love ? " text-red-600  rounded" : " text-white"
-//         }`}
-//         onClick={() => setLove(!love)}
-//       >
-//         <abbr title="love">
-//           <Heart strokeWidth={love ? 4 : 2} />
-//         </abbr>
-//       </button>
-//       <abbr title="comment">
-//         <button className="m-2 cursor-pointer">
-//           <MessageCircle />
-//         </button>
-//       </abbr>
-//       <abbr title="save">
-//         <button
-//           className={`m-2 cursor-pointer + ${
-//             save ? " bg-white text-black rounded " : " bg-black"
-//           }`}
-//           onClick={() => setSave(!save)}
-//         >
-//           <Bookmark strokeWidth={save ? 4 : 2} />{" "}
-//         </button>
-//       </abbr>
-//     </div>
-//   );
-// }
