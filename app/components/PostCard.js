@@ -1,13 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icons from "./Icons";
 import CommentsList from "./CommentsList";
 import { useTheme } from "../context/ThemeContext";
 
-export default function PostCard({ usersData, postsData, comments }) {
+export default function PostCard({ usersData, postsData, comments, photos }) {
   const { theme } = useTheme();
-  const [activeComments, setActiveComments] = useState(null);
 
+  const [activeComments, setActiveComments] = useState();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
   const getComments = async (postId) => {
     try {
       const postComments = comments.filter(
@@ -39,6 +46,7 @@ export default function PostCard({ usersData, postsData, comments }) {
   return (
     <div className="flex flex-col items-center gap-8 p-4 md:p-8">
       {postsData.map((post, index) => {
+        const num = Math.floor(Math.random() * 20);
         const assignedUser = getAssignedUser(index);
         if (!assignedUser) return null;
 
@@ -106,17 +114,15 @@ export default function PostCard({ usersData, postsData, comments }) {
 
             {/* Post Image (Placeholder) */}
             <div
-              className={`w-full rounded mb-4 h-64 md:h-96 flex items-center justify-center ${
+              className={`w-full rounded mb-4 h-64 md:h-96 flex items-center justify-center overflow-hidden ${
                 theme === "dark" ? "bg-gray-800" : "bg-gray-200"
               }`}
             >
-              <span
-                className={`${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
-                Post Image
-              </span>
+              <img
+                className="rounded-lg  "
+                src={photos[num].webformatURL}
+                alt="media "
+              />
             </div>
 
             {/* Icons and Comments Section */}

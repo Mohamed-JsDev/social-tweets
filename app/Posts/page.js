@@ -1,27 +1,19 @@
 import { Suspense } from "react";
 import PostCard from "../components/PostCard";
+import { Comments, Post, AllUsers, Photo } from "./../Api/Action";
 export default async function Posts() {
-  const postsRes = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=100"
-  );
-  const usersRes = await fetch(
-    "https://jsonplaceholder.typicode.com/users?_limit=10"
-  );
-  const resComments = await fetch(
-    "https://jsonplaceholder.typicode.com/comments"
-  );
-  const comments = await resComments.json();
-
-  const postsData = await postsRes.json();
-  const usersData = await usersRes.json();
-
+  const postsData = await Post();
+  const usersData = await AllUsers();
+  const comments = await Comments();
+  const photos = await Photo();
   return (
     <div className="flex flex-col items-center px-8">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>posts Loading...</div>}>
         <PostCard
           usersData={usersData}
           postsData={postsData}
           comments={comments}
+          photos={photos}
         />
       </Suspense>
     </div>

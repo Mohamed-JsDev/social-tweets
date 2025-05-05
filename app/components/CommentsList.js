@@ -126,7 +126,7 @@ export default function CommentsList({ comments, onClose }) {
           <div className="flex items-center gap-2">
             <input
               type="text"
-              placeholder="Add Comment.."
+              placeholder="Add Comment."
               className={`
                 flex-1 py-2 px-3 rounded-full
                 ${

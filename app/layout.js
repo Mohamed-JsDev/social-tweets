@@ -1,11 +1,9 @@
 import { ThemeProvider } from "./context/ThemeContext";
 import "./globals.css";
 
-const data = "social tweets";
-
 export const metadata = {
-  title: data,
-  description: "next app social media",
+  title: "social tweets",
+  description: " social tweets app to connect with people",
 };
 
 export default function RootLayout({ children }) {

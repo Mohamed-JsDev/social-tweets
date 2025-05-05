@@ -61,6 +61,7 @@ export default function Header() {
           <div className="flex items-center  space-x-6 max-sm:space-x-1">
             {/* Notification Bell */}
             <button
+              aria-label="Notification"
               className={`p-2 rounded-full transition-colors duration-300 ${
                 theme === "dark"
                   ? "hover:bg-[var(--card-dark)] text-[var(--secondary-dark)]"
@@ -72,6 +73,7 @@ export default function Header() {
 
             {/* User Plus */}
             <button
+              aria-label="login "
               className={`p-2 rounded-full transition-colors duration-300 ${
                 theme === "dark"
                   ? "hover:bg-[var(--card-dark)] text-[var(--secondary-dark)]"
